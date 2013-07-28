@@ -1,0 +1,11 @@
+{
+  "author": "Jimmy Gaussen",
+  "name": "readInt",
+  "description": "Node application for a localized written number parsing",
+  "version": "0.1.0",
+  "repository": {
+    "url": "https://github.com/nmussy/readInt"
+  },
+  "main": "./bin/readInt.js",
+  "keywords": ["written", "number", "parsing", "parse", "integer", "int", "localized", "english", "french"]
+}
