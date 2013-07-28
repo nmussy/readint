@@ -13,5 +13,5 @@
     "url": "https://github.com/nmussy/readint.git"
   },
   "main": "./bin/readint.js",
-  "keywords": [ "written", "number", "parsing", "parse", "integer", "int", "localized", "english", "french"],
+  "keywords": [ "written", "number", "parsing", "parse", "integer", "int", "localized", "english", "french"]
 }
