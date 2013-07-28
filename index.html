@@ -74,7 +74,7 @@
             return;
           }
           var intval = readint($('#demo-input').val(), $('#demo-locales').children('.selected').attr('data-locale'));
-          if(intval != -1 && intval != $('#demo-output').html().replace(/\s,/g, ''))
+          if(intval != -1 && intval != $('#demo-output').html().replace(/\s./g, ''))
             $('#demo-output').fadeOut(200, function() {
               $('#demo-output').html('');
               intval = new String(intval).split(/(?=(?:...)*$)/);
