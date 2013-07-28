@@ -1,4 +1,4 @@
-readInt
+readint
 =======
 
 Node application for a localized written number parsing, thought for being easily translated.
@@ -6,14 +6,14 @@ Node application for a localized written number parsing, thought for being easil
 Examples
 --------
 
-Here are some [demos](http://nmussy.github.io/parseInt/).
+Here are some [demos](http://nmussy.github.io/readint/).
 
 Installation
 ------------
 
 ### Using NPM (Node Packaged Modules)
 
-	npm install readInt
+	npm install readint
 	
 Usage
 -----
