@@ -75,6 +75,10 @@
 	background-image: url('../images/es.gif');
 }
 
+#de-selector {
+	background-image: url('../images/de.gif');
+}
+
 #search-form {
 	margin-top: 2%;
 }

@@ -38,6 +38,7 @@
             <span id="en-selector" title="English" class="locale-selector selected" data-locale="en"></span>
             <span id="fr-selector" title="French" class="locale-selector" data-locale="fr"></span>
             <span id="es-selector" title="Spanish" class="locale-selector" data-locale="es"></span>
+            <span id="de-selector" title="German" class="locale-selector" data-locale="de"></span>
           </div>
       </section>
       <footer>
@@ -47,7 +48,7 @@
         <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
       </footer>
     </div>
-    <script src="lib/readint.min-0.1.2.js"></script>
+    <script src="lib/readint.min-0.1.3.js"></script>
     <script src="lib/jquery-2.0.3.min.js"></script>
     <script src="javascripts/scale.fix.js"></script>
     <script type="text/javascript">
@@ -74,11 +75,11 @@
             return;
           }
           var intval = readint($('#demo-input').val(), $('#demo-locales').children('.selected').attr('data-locale'));
-          if(intval != -1 && intval != $('#demo-output').html().replace(/\s./g, ''))
+          if(intval != -1 && intval != $('#demo-output').html().replace(/\s,/g, ''))
             $('#demo-output').fadeOut(200, function() {
               $('#demo-output').html('');
               intval = new String(intval).split(/(?=(?:...)*$)/);
-              if($('#demo-locales').children('.selected').attr('data-locale') == 'en')
+              if($('#demo-locales').children('.selected').attr('data-locale') == 'en' || $('#demo-locales').children('.selected').attr('data-locale') == 'de')
                 var separator = ',';
               else
                 var separator = ' ';
