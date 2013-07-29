@@ -1,18 +1,18 @@
 /**
  * The MIT License (MIT)
- * 
+ *
  * Copyright (c) 2013 Jimmy Gaussen
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
  * the Software without restriction, including without limitation the rights to
  * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
  * the Software, and to permit persons to whom the Software is furnished to do so,
  * subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
  * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
@@ -20,7 +20,7 @@
  * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-;(function(){
+ ;(function(){
 
 /**
  * Require the given path.
@@ -223,41 +223,40 @@ module.exports = require('../lib/readint.js');
 });
 require.register("readint/lib/readint.js", function(exports, require, module){
 function readint(str, locale) {
-	if(!isNaN(parseInt(str)))
-		return parseInt(str);
+	if(!isNaN(global = parseInt(str)))
+		return global;
 
 	if(typeof locale === 'undefined')
 		locale = 'en';
+	locale = require('../locales/' + locale);
 
-	var locale = require('../locales/' + locale);
-	var tokens =  tokenizeString(str, locale);
-
-
-	if(tokens.length > 0)
-		return parseInteger(tokens);
+	if((tokens = tokenizeString(str, locale)).length > 0)
+		return parseInteger(tokens, locale);
 	return -1;
 };
 
-function parseInteger(tokens) {
+function parseInteger(tokens, locale) {
 	if(tokens.length == 0)
 		return -1;
 	if(tokens.length == 1)
 		return tokens[0].value;
 
-	var highestLevel = -1;
-	var highestLevelIndex = -1;
-	for(var i = 0; i < tokens.length; ++i) {
-		if(tokens[i].value > highestLevel) {
-			highestLevel = tokens[i].value;
+	var highestLevelIndex = -1, lValue, rValue;
+	for(var i = 0, highestLevel = -1; i < tokens.length; ++i)
+		if(tokens[i].level > highestLevel) {
+			highestLevel = tokens[i].level;
 			highestLevelIndex = i;
 		}
-	}
 
-	var highestLevelValue = tokens[highestLevelIndex].value;
-	var leftHandValue = parseInteger(tokens.slice(0, highestLevelIndex));
-	var rightHandValue = parseInteger(tokens.slice(highestLevelIndex + 1, tokens.length));
+	if((lValue = parseInteger(tokens.slice(0, highestLevelIndex))) == -1)
+		lValue = 1;
+	if((rValue = parseInteger(tokens.slice(highestLevelIndex + 1, tokens.length))) == -1)
+		rValue = 0;
 
-	return (leftHandValue == -1 ? 1 : leftHandValue) * highestLevelValue + (rightHandValue == -1 ? 0 : rightHandValue); 
+	if(typeof locale.LTRlevels !== 'undefined' && locale.LTRlevels.indexOf(highestLevelIndex) != -1)
+		return lValue + tokens[highestLevelIndex].value + rValue;
+
+	return lValue * tokens[highestLevelIndex].value + rValue;
 };
 
 function tokenizeString(str, locale) {
@@ -265,55 +264,35 @@ function tokenizeString(str, locale) {
 	var keywords = getKeywords(locale.values);
 
 	var result = [];
-	if(typeof locale.filters === 'undefined') {		
-		for(var i = 0; ; ++i) {
-			if(typeof tokens[i] === 'undefined')
-				break;
+	if(typeof locale.filters === 'undefined')
+		locale.filters = [];
 
-			if(tokens[i].length == 0) {
-				tokens.splice(i--, 1);
-				continue;
-			}
-			for(var j = 0; ; ++j)
-				if(typeof keywords[j] === 'undefined') {
-					tokens.splice(i--, 1);
-					break;
-				} else if(tokens[i].toLowerCase() == keywords[j].string){
-					result.push(keywords[j]);
-					break;	
-				}
-		}
-	} else
-		for(var i = 0; ; ++i) {
-			if(typeof tokens[i] === 'undefined')
-				break;
-
-			if(tokens[i].length == 0) {
-				tokens.splice(i--, 1);
-				continue;
-			}
-			tokens[i] = tokens[i].toLowerCase();
-			for(var j = 0; j < locale.filters.length; ++j)
-				tokens[i] = tokens[i].replace(locale.filters[j][0], locale.filters[j][1]);
-			for(var j = 0; ; ++j)
-				if(typeof keywords[j] === 'undefined') {
-					tokens.splice(i--, 1);
-					break;
-				} else if(tokens[i] == keywords[j].string) {
-					result.push(keywords[j]);
-					break;	
-				}
+	for(var i = 0; typeof tokens[i] !== 'undefined'; ++i) {
+		if((tokens[i] = tokens[i].toLowerCase()).length == 0) {
+			tokens.splice(i--, 1);
+			continue;
 		}
 
+		for(var j = 0; j < locale.filters.length; ++j)
+			tokens[i] = tokens[i].replace(locale.filters[j][0], locale.filters[j][1]);
+
+		for(var j = 0; ; ++j)
+			if(j >= keywords.length) {
+				tokens.splice(i--, 1);
+				break;
+			} else if(tokens[i] == keywords[j].string) {
+				result.push(keywords[j]);
+				break;
+			}
+	}
 	return result;
 };
 
 function getKeywords (values) {
 	var keys = [];
-	for(var i = 0; i < values.length; ++i) {
+	for(var i = 0; i < values.length; ++i)
 		for(var key in values[i])
 			keys.push({'string': key, 'value': values[i][key], 'level': i});
-	}
 	return keys;
 };
 
@@ -322,7 +301,7 @@ module.exports = readint;
 require.register("readint/locales/en.js", function(exports, require, module){
 module.exports = {
 	'splitter' : /\s|\sand/,
-	'filters' : [[/s$/,''], [/ies$/, 'y']],
+	'filters' : [[/ies?$/, 'y'], [/s$/,'']],
 	'values': [
 		{"zero": 0, "one": 1, "two": 2, "three": 3, "four": 4, "five": 5, "six": 6, "seven": 7, "eight": 8, "nine": 9, "eleven": 11, "twelve": 12, "thirteen": 13, "fourteen": 14, "fifteen": 15, "sixteen": 16, "seventeen": 17, "eighteen": 18, "nineteen": 19},
 		{"ten": 10, "twenty": 20, "thirty": 30, "forty": 40, "fifty": 50, "sixty": 60, "seventy": 70, "eighty": 80, "ninety": 90},
@@ -337,7 +316,7 @@ module.exports = {
 require.register("readint/locales/es.js", function(exports, require, module){
 module.exports = {
 	'splitter' : /\s|\sy/,
-	'filters' : [[/s$/,''], [/[á]/, 'a'], [/[é]/, 'e'], [/[ú]/, 'u'], [/[ó]/, 'o'], [/[ñ]/, 'n'], [/[í]/, 'i']],
+	'filters' : [[/á/, 'a'], [/é/, 'e'], [/ú/, 'u'], [/ó/, 'o'], [/ñ/, 'n'], [/í/, 'i']],
 	'values': [
 		{"zero": 0, "uno": 1, "dos": 2, "tres": 3, "cuatro": 4, "cinco": 5, "seis": 6, "siete": 7, "ocho": 8, "nueve": 9, "once": 11, "doze": 12, "trece": 13, "catorce": 14, "quince": 15, "diecisies": 16, "diecisiete": 17, "dieciocho": 18, "diecinueve": 19, "veintiuno": 21, "veintidos": 22, "veintitres": 23, "veinticuatro": 24, "veinticinco": 25, "veintiseis": 26, "veintisiete": 27, "veintiocho": 28, "veintinueve": 29},
 		{"diez": 10, "veinte": 20, "treinta": 30, "cuarenta": 40, "cicuenta": 50, "sensta": 60, "setenta": 70, "ochenta": 80, "noventa": 90},
@@ -352,12 +331,28 @@ module.exports = {
 require.register("readint/locales/fr.js", function(exports, require, module){
 module.exports = {
 	'splitter' : /\s|et|-(?=[^vingt|dix])/,
-	'filters' : [[/s$/,''], [/[àâ]/, 'a'], [/[êéèë]/, 'e'], [/[ùûûü]/, 'u'], [/[ô]/, 'o'], [/[ç]/, 'c'], [/[îï]/, 'i']],
+	'filters' : [[/s$/,''], [/[àâ]/, 'a'], [/[êéèë]/, 'e'], [/[ùûûü]/, 'u'], [/ô/, 'o'], [/ç/, 'c'], [/[îï]/, 'i']],
 	'values': [
 		{"zero": 0, "un": 1, "deux": 2, "troi": 3, "quatre": 4, "cinq": 5, "six": 6, "sept": 7, "huit": 8, "neuf": 9, "onze": 11, "douze": 12, "treize": 13, "quatorze": 14, "quinze": 15, "seize": 16},
 		{"dix": 10, "vingt": 20, "trente": 30, "quarente": 40, "cinquante": 50, "soixante": 60, "soixante-dix": 70, "quatre-vingt": 80, "quatre-vingt-dix": 90},
 		{"cent": 100},
 		{"mille": 1000},
+		{"million": 1000000},
+		{"milliard": 1000000000},
+		{"billion": 1000000000000}
+	]
+};
+});
+require.register("readint/locales/de.js", function(exports, require, module){
+module.exports = {
+	'splitter' : /-|(hundert|tausend|million|milliard|billion)|und(?!ert)|\s/,
+	'filters' : [[/ä/, 'a'], [/ö/, 'o'], [/ü/, 'u'], [/ß/, 'ss'], [/[es][ns]?$/, '']],
+	'LTRlevels' : [1],
+	'values': [
+		{"null": 0, "ein": 1, "zwei": 2, "drei": 3, "vier": 4, "fuenf": 5, "sech": 6, "sieben": 7, "acht": 8, "neun": 9, "elf": 11, "zwoelf": 12, "dreizehn": 13, "vierzehn": 14, "fuenfzehn": 15, "sechzehn": 16, "siebzehn": 17, "achtzehn": 18, "neunzehn": 19},
+		{"zehn": 10, "zwanzig": 20, "dreissig": 30, "vierzig": 40, "fuenfzig": 50, "sechzig": 60, "siebzig": 70, "achtzig": 80, "neunzig": 90},
+		{"hundert": 100},
+		{"tausend": 1000},
 		{"million": 1000000},
 		{"milliard": 1000000000},
 		{"billion": 1000000000000}
