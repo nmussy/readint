@@ -2,7 +2,7 @@
   "name": "readint",
   "repo": "nmussy/readint",
   "description": "Localized written number parsing",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "keywords": [ "written", "number", "parsing", "parse", "integer", "int", "localized", "english", "french"],
   "main": "bin/readint.js",
   "scripts": [

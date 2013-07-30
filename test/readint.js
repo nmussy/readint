@@ -8,9 +8,14 @@
 var readint = require('../lib/readint');
 var assert = require('better-assert');
 
+
+
 /*******************************************\
 *                  English                  *
 \*******************************************/
+
+
+
 
 describe('English:', function() {
   /**
@@ -264,9 +269,14 @@ describe('English:', function() {
 });
 
 
+
+
 /********************************************\
 *                   French                   *
 \********************************************/
+
+
+
 
 describe('French:', function() {
   /**
@@ -455,6 +465,14 @@ describe('French:', function() {
     it('quatre-vingt-dix-neuf', function () {
       assert(99 == readint('quatre-vingt-dix-neuf', 'fr'));
     });
+
+    it('quatre vingt dix neuf', function () {
+      assert(99 == readint('quatre vingt dix neuf', 'fr'));
+    });
+
+    it('nonante neuf', function () {
+      assert(99 == readint('nonante neuf', 'fr'));
+    });
   });
 
 
@@ -534,14 +552,23 @@ describe('French:', function() {
     it('neuf-cent-quatre-vingt-dix-neuf-millions-neuf-cent-quatre-vingt-dix-neuf-mille-neuf-cent-quatre-vingt-dix-neuf', function () {
       assert(999999999 == readint('neuf-cent-quatre-vingt-dix-neuf-millions-neuf-cent-quatre-vingt-dix-neuf-mille-neuf-cent-quatre-vingt-dix-neuf', 'fr'));
     });
+    
+    it('neuf cent quatre vingt dix neuf millions neuf cent quatre vingt dix neuf mille neuf cent quatre vingt dix neuf', function () {
+      assert(999999999 == readint('neuf cent quatre vingt dix neuf millions neuf cent quatre vingt dix neuf mille neuf cent quatre vingt dix neuf', 'fr'));
+    });
   });
 
 });
 
 
+
+
 /*******************************************\
 *                  Spanish                  *
 \*******************************************/
+
+
+
 
 describe('Spanish:', function() {
   /**
@@ -804,6 +831,274 @@ describe('Spanish:', function() {
     
     it('novecientos noventa y nueve millones novecientos noventa y nueve mil y novecientos noventa y nueve', function () {
       assert(999999999 == readint('novecientos noventa y nueve millones novecientos noventa y nueve mil y novecientos noventa y nueve', 'es'));
+    });
+  });
+
+});
+
+
+
+
+/********************************************\
+*                   German                   *
+\********************************************/
+
+
+
+
+describe('German:', function() {
+  /**
+   * Digits and exceptions (Level 0)
+   */
+
+  describe('Digits and exceptions (Level 0):', function () {
+    it('null', function () {
+      assert(0 == readint('null', 'de'));
+    });
+    
+    it('eins', function () {
+      assert(1 == readint('eins', 'de'));
+    });
+    
+    it('zwei', function () {
+      assert(2 == readint('zwei', 'de'));
+    });
+    
+    it('drei', function () {
+      assert(3 == readint('drei', 'de'));
+    });
+    
+    it('vier', function () {
+      assert(4 == readint('vier', 'de'));
+    });
+    
+    it('fünf', function () {
+      assert(5 == readint('fünf', 'de'));
+    });
+    
+    it('sech', function () {
+      assert(6 == readint('sech', 'de'));
+    });
+    
+    it('sieben', function () {
+      assert(7 == readint('sieben', 'de'));
+    });
+    
+    it('acht', function () {
+      assert(8 == readint('acht', 'de'));
+    });
+
+    it('neun', function () {
+      assert(9 == readint('neun', 'de'));
+    });
+
+    it('elf', function () {
+      assert(11 == readint('elf', 'de'));
+    });
+
+    it('zwoelf', function () {
+      assert(12 == readint('zwoelf', 'de'));
+    });
+  });
+
+  /**
+   * Tens (Level 1)
+   */
+
+  describe('Tens (Level 1):', function () {    
+    it('zehn', function () {
+      assert(10 == readint('zehn', 'de'));
+    });
+
+    it('dreizehn', function () {
+      assert(13 == readint('dreizehn', 'de'));
+    });
+
+    it('vierzehn', function () {
+      assert(14 == readint('vierzehn', 'de'));
+    });
+
+    it('fünfzehn', function () {
+      assert(15 == readint('fünfzehn', 'de'));
+    });
+
+    it('sechzehn', function () {
+      assert(16 == readint('sechzehn', 'de'));
+    });
+
+    it('siebzehn', function () {
+      assert(17 == readint('siebzehn', 'de'));
+    });
+    
+    it('achtzehn', function () {
+      assert(18 == readint('achtzehn', 'de'));
+    });
+    
+    it('neunzehn', function () {
+      assert(19 == readint('neunzehn', 'de'));
+    });
+    
+    it('zwanzig', function () {
+      assert(20 == readint('zwanzig', 'de'));
+    });
+    
+    it('eineundzwanzig', function () {
+      assert(21 == readint('eineundzwanzig', 'de'));
+    });
+    
+    it('dreißig', function () {
+      assert(30 == readint('dreißig', 'de'));
+    });
+    
+    it('neununddreißig', function () {
+      assert(39 == readint('neununddreißig', 'de'));
+    });
+
+    it('vierzig', function () {
+      assert(40 == readint('vierzig', 'de'));
+    });
+
+    it('fünfzig', function () {
+      assert(50 == readint('fünfzig', 'de'));
+    });
+
+    it('sechzig', function () {
+      assert(60 == readint('sechzig', 'de'));
+    });
+
+    it('dreiundsechzig', function () {
+      assert(63 == readint('dreiundsechzig', 'de'));
+    });
+
+    it('siebzig', function () {
+      assert(70 == readint('siebzig', 'de'));
+    });
+
+    it('achtzig', function () {
+      assert(80 == readint('achtzig', 'de'));
+    });
+
+    it('neunzig', function () {
+      assert(90 == readint('neunzig', 'de'));
+    });
+
+    it('neunundneunzig', function () {
+      assert(99 == readint('neunundneunzig', 'de'));
+    });
+  });
+
+
+  /**
+   * Hundreds (Level 2)
+   */
+
+  describe('Hundreds (Level 2):', function () {
+    it('hundert', function () {
+      assert(100 == readint('hundert', 'de'));
+    });
+
+    it('einhundert', function () {
+      assert(100 == readint('einhundert', 'de'));
+    });
+    
+    it('zweihundert', function () {
+      assert(200 == readint('zweihundert', 'de'));
+    });
+
+    it('dreihundert', function () {
+      assert(300 == readint('dreihundert', 'de'));
+    });
+    
+    it('vierhundert', function () {
+      assert(400 == readint('vierhundert', 'de'));
+    });
+    
+    it('fünfhundert', function () {
+      assert(500 == readint('fünfhundert', 'de'));
+    });
+    
+    it('fünfhundertsechsundneunzig', function () {
+      assert(596 == readint('fünfhundertsechsundneunzig', 'de'));
+    });
+    
+    it('sechshundert', function () {
+      assert(600 == readint('sechshundert', 'de'));
+    });
+    
+    it('siebenhundert', function () {
+      assert(700 == readint('siebenhundert', 'de'));
+    });
+    
+    it('achthundert', function () {
+      assert(800 == readint('achthundert', 'de'));
+    });
+    
+    it('neunhundert', function () {
+      assert(900 == readint('neunhundert', 'de'));
+    });
+    
+    it('siebzehnhundert', function () {
+      assert(1700 == readint('siebzehnhundert', 'de'));
+    });
+
+    it('neunhundertneunundneunzig', function () {
+      assert(999 == readint('neunhundertneunundneunzig', 'de'));
+    });
+  });
+
+  /**
+   * Thousands (Level 3)
+   */
+
+  describe('Thousands (Level 3):', function () {
+    it('tausend', function () {
+      assert(1000 == readint('tausend', 'de'));
+    });
+
+    it('eintausend', function () {
+      assert(1000 == readint('eintausend', 'de'));
+    });
+    
+    it('zweitausend', function () {
+      assert(2000 == readint('zweitausend', 'de'));
+    });
+    
+    it('vierzehntausend', function () {
+      assert(14000 == readint('vierzehntausend', 'de'));
+    });
+        
+    it('sechsundachtzigtausendfünfhundertzwanzig', function () {
+      assert(86520 == readint('sechsundachtzigtausendfünfhundertzwanzig', 'de'));
+    });
+    
+    it('neunundneunzigtausendneunhundertneunundneunzig', function () {
+      assert(99999 == readint('neunundneunzigtausendneunhundertneunundneunzig', 'de'));
+    });
+  });
+
+  /**
+   * Millions (Level 4)
+   */
+
+  describe('Millions (Level 4):', function () {
+    it('Million', function () {
+      assert(1000000 == readint('Million', 'de'));
+    });
+
+    it('eine Million', function () {
+      assert(1000000 == readint('eine Million', 'de'));
+    });
+
+    it('zwei Millionen', function () {
+      assert(2000000 == readint('zwei Millionen', 'de'));
+    });
+
+    it('siebzehn Millionen', function () {
+      assert(17000000 == readint('siebzehn Millionen', 'de'));
+    });
+    
+    it('neunhundertneunundneunzig Millionen neunhundertneunundneunzigtausendneunhundertneunundneunzig', function () {
+      assert(999999999 == readint('neunhundertneunundneunzig Millionen neunhundertneunundneunzigtausendneunhundertneunundneunzig', 'de'));
     });
   });
 
