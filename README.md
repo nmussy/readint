@@ -1,4 +1,4 @@
-readint
+readint [![Build Status](https://travis-ci.org/nmussy/readint.png?branch=master)](https://travis-ci.org/nmussy/readint)
 =======
 
 Node application for a localized written number parsing, thought for being easily translated.
