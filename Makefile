@@ -1,3 +1,6 @@
+test:
+	@./node_modules/bin/mocha -R spec
+
 build: components bin/readint.js
 	@component build --dev
 

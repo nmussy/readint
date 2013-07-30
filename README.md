@@ -26,7 +26,7 @@ Usage
 
 You can see a list of availables locales in the [locales](https://github.com/nmussy/readint/tree/master/locales) folder, the default one being `en`.
 
-Contributing
-------------
+Licence
+-------
 
-Both code corrections and new translations would be gladly accepted!
+MIT

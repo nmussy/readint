@@ -7,10 +7,17 @@
   "homepage": "http://nmussy.github.io/readint",
   "name": "readint",
   "description": "Node application for a localized written number parsing",
-  "version": "0.1.3",
+  "version": "0.2.0",
   "repository": {
     "type" : "git",
     "url": "https://github.com/nmussy/readint.git"
+  },
+  "devDependencies": {
+    "better-assert": "~1.0.0",
+    "mocha": "~1.12.0"
+  },
+  "scripts": {
+    "test": "make"
   },
   "main": "./bin/readint.js",
   "keywords": [ "written", "number", "parsing", "parse", "integer", "int", "localized", "english", "french"]

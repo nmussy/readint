@@ -1,6 +1,12 @@
 Changelog
 ---------
 
+### 0.2.0    July 30, 2013
+
+* Now with tests! (German tests coming soon)
+* Lots of fixes, both in the code and in the translation (Thanks, [stackoverflow](http://stackoverflow.com/questions/17930110/multiple-conditions-regex-javascript-split)!)
+* Slight internal functions renaming.
+
 ### 0.1.3    July 29, 2013
 
 * German translation.

@@ -1,6 +1,6 @@
 module.exports = {
-	'splitter' : /-|(hundert|tausend|million|milliard|billion)|und(?!ert)|\s/,
-	'filters' : [[/ä/, 'a'], [/ö/, 'o'], [/ü/, 'u'], [/ß/, 'ss'], [/[es][ns]?$/, '']],
+	'split' : /-|(?=hundert|tausend|million|milliard|billion)|und(?!ert)|\s/,
+	'replace' : [[/ä/g, 'a'], [/ö/g, 'o'], [/ü/g, 'u'], [/ß/g, 'ss'], [/[es][ns]?$/g, '']],
 	'LTRlevels' : [1],
 	'values': [
 		{"null": 0, "ein": 1, "zwei": 2, "drei": 3, "vier": 4, "fuenf": 5, "sech": 6, "sieben": 7, "acht": 8, "neun": 9, "elf": 11, "zwoelf": 12, "dreizehn": 13, "vierzehn": 14, "fuenfzehn": 15, "sechzehn": 16, "siebzehn": 17, "achtzehn": 18, "neunzehn": 19},
