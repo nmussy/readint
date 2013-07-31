@@ -1,5 +1,5 @@
 test:
-	@./node_modules/bin/mocha -R spec
+	@./node_modules/mocha/bin/mocha -R spec
 
 build: components bin/readint.js
 	@component build --dev

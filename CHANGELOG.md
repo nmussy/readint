@@ -1,6 +1,11 @@
 Changelog
 ---------
 
+### 0.2.2    July 30, 2013
+
+* Optimized German version.
+* Slight code optimizations.
+
 ### 0.2.1    July 30, 2013
 
 * German tests, totaling 230 successful tests in four languages.

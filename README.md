@@ -15,7 +15,12 @@ Installation
 
 	npm install readint
 
-### Standalone JavaScript version ([component](https://github.com/component/component)ed)
+### Using [component](https://github.com/component/component)
+
+	npm install component
+	component install nmussy/readint
+
+### Standalone JavaScript version (component'ed)
 
 Download either the [full](dist/readint.js) or [minified](dist/readint.min.js) version in the [dist](https://github.com/nmussy/readint/tree/master/dist) folder, and include it to your web page.
 

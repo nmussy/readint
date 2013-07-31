@@ -236,10 +236,10 @@ function readint(str, locale) {
 };
 
 function _readint(tokens, locale) {
-	if(tokens.length == 0)
-		return -1;
-	if(tokens.length == 1)
+	if(tokens.length === 1)
 		return tokens[0].value;
+	if(tokens.length === 0)
+		return -1;
 
 	var highestLevelIndex = -1, highestLevel = -1, lValue, rValue;
 	for(var i = 0; i < tokens.length; ++i)
@@ -249,13 +249,13 @@ function _readint(tokens, locale) {
 		}
 
 	lValue = _readint(tokens.slice(0, highestLevelIndex), locale);
-	if((rValue = _readint(tokens.slice(highestLevelIndex + 1, tokens.length), locale)) == -1)
+	if((rValue = _readint(tokens.slice(highestLevelIndex + 1), locale)) === -1)
 		rValue = 0;
 
-	if(locale.LTRlevels.indexOf(highestLevel) != -1)
-		return (lValue == -1 ? 0 : lValue) + tokens[highestLevelIndex].value + rValue;
+	if(locale.LTRlevels.indexOf(highestLevel) !== -1)
+		return (lValue === -1 ? 0 : lValue) + tokens[highestLevelIndex].value + rValue;
 
-	return (lValue == -1 ? 1 : lValue) * tokens[highestLevelIndex].value + rValue;
+	return (lValue === -1 ? 1 : lValue) * tokens[highestLevelIndex].value + rValue;
 };
 
 function _tokenize(str, locale) {
@@ -263,7 +263,7 @@ function _tokenize(str, locale) {
 
 	for(var i = 0, tokens = str.toLowerCase().split(locale.split), keywords = _parsekeywords(locale.values);
 		 typeof tokens[i] !== 'undefined'; ++i) {
-		if(tokens[i].length == 0) {
+		if(tokens[i].length === 0) {
 			tokens.splice(i--, 1);
 			continue;
 		}
@@ -275,7 +275,7 @@ function _tokenize(str, locale) {
 			if(j >= keywords.length) {
 				tokens.splice(i--, 1);
 				break;
-			} else if(tokens[i] == keywords[j].string) {
+			} else if(tokens[i] === keywords[j].string) {
 				result.push(keywords[j]);
 				break;
 			}
@@ -343,11 +343,11 @@ module.exports = {
 });
 require.register("readint/locales/de.js", function(exports, require, module){
 module.exports = {
-	'split' : /-|(hundert|tausend|millione?n?|milliarde?n?|billione?n?|und(?!ert))/,
+	'split' : /-|(zehn|hundert|tausend|millione?n?|milliarde?n?|billione?n?|und(?!ert))/,
 	'replace' : [[/\s/g, ''], [/ä/g, 'a'], [/ö/g, 'o'], [/ü/g, 'ue'], [/ß/g, 'ss'], [/[es][ns]?(\s|$)/g, '']],
 	'LTRlevels' : [1],
 	'values': [
-		{"null": 0, "ein": 1, "zwei": 2, "drei": 3, "vier": 4, "fuenf": 5, "sech": 6, "sieb": 7, "acht": 8, "neun": 9, "elf": 11, "zwoelf": 12, "dreizehn": 13, "vierzehn": 14, "fuenfzehn": 15, "sechzehn": 16, "siebzehn": 17, "achtzehn": 18, "neunzehn": 19},
+		{"null": 0, "ein": 1, "zwei": 2, "drei": 3, "vier": 4, "fuenf": 5, "sech": 6, "sieb": 7, "acht": 8, "neun": 9, "elf": 11, "zwoelf": 12},
 		{"zehn": 10, "zwanzig": 20, "dreissig": 30, "vierzig": 40, "fuenfzig": 50, "sechzig": 60, "siebzig": 70, "achtzig": 80, "neunzig": 90},
 		{"hundert": 100},
 		{"tausend": 1000},
