@@ -31,7 +31,7 @@
       </header>
       <section>
         <h1>Demo</h1>
-          <h3>Just start to type a number. You can also change the input language by clicking on its icon.</h3>
+          <h3>You can start to type a number, or choose one of the examples. You can also change the input language by clicking on its icon.</h3>
           <input type="text" id="demo-input" />
           <span id="demo-output"></span>
           <div id="demo-locales">
@@ -39,6 +39,8 @@
             <span id="fr-selector" title="French" class="locale-selector" data-locale="fr"></span>
             <span id="es-selector" title="Spanish" class="locale-selector" data-locale="es"></span>
             <span id="de-selector" title="German" class="locale-selector" data-locale="de"></span>
+          </div>
+          <div id="demo-examples">
           </div>
       </section>
       <footer>
@@ -48,7 +50,7 @@
         <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
       </footer>
     </div>
-    <script src="lib/readint-0.2.1.min.js"></script>
+    <script src="lib/readint-0.2.2.min.js"></script>
     <script src="lib/jquery-2.0.3.min.js"></script>
     <script src="javascripts/scale.fix.js"></script>
     <script type="text/javascript">
@@ -62,9 +64,19 @@
         } catch(err) {}
     </script>
     <script type="text/javascript">
-      $(function() {
+      var examples = {
+        "en": [ 'two', 'fifty six', 'a hundred', 'eleven', 'six thousand nine hundred and five', 'seven', 'nine hundred and ninety nine', 'eighteen hundred', 'million', 'three hundred thirty eight', 'nine thousand four hundred forty nine', 'three', 'twenty two', 'five hundred and eight', 'twenty one', 'eighty two thousand and eight'],
+        "fr": [ 'deux', 'soixante-six', 'cent', 'onze', 'six mille neuf cent cinq', 'sept', 'neuf-cent-quatre-vingt-dix-neuf', 'dix-huit mille', 'un million', 'trois cent trente huit', 'neuf mille quatre cent quarante neuf', 'trois', 'vingt-deux', 'cinq cent huit', 'vingt-et-un', 'octante deux mille nonante trois'],
+        "es": [ 'dos', 'sesenta y seis', 'ciento', 'once', 'seis mil novecientos y cinco', 'siete', 'ovecientos noventa y nueve', 'dieciocho mil', 'un millón', 'trescientos treinta y ocho', 'nueve mil cuatrocientos cuarenta nueve', 'tres', 'veintidós', 'quinientos y ocho', 'veintiuno', 'ochenta y dos mil noventa tres'],
+        "de": [ 'zwei', 'sechsundfünfzig', 'einhundert', 'elf', 'sechstausendneunhundertneunundneunzigfünf', 'sieben', 'neunhundertneunundneunzig', 'achtzehnhundert', 'eine Million', 'dreihundertachtunddreißig', 'neuntausendvierhundertneunundvierzig', 'drei', 'zweiundzwanzig', 'fünfhundertacht', 'eineundzwanzig', 'zweiundachtzigtausendacht']}
+      $(document).ready(function() {
         $.get('https://api.github.com/repos/nmussy/readint/tags', function(data) { 
           $('#version').html('Version ' + data[0].name);
+        });
+
+        shuffle(examples.en).forEach(function (el) {
+            $('#demo-examples').append('<span class="ex" style="font-size:' + Math.floor(Math.random() * (40 - 14 + 1) + 14) + 'px; font-weight:' + 
+                    Math.floor(Math.random() * (9 - 1 + 1) + 1) + '00">' + el + '</span> ');
         });
 
         $('#demo-input').focus().on('input', function() {
@@ -98,11 +110,35 @@
         });
 
         $('#demo-locales').on('click', '.locale-selector:not(.selected)', function() {
+
           $('#demo-locales').children('.selected').removeClass('selected');
           $(this).addClass('selected');
           $('#demo-input').focus().trigger('input');
+          $('#demo-examples').fadeOut(200, function() {
+            $('#demo-examples').empty();
+            shuffle(examples[$('#demo-locales').children('.selected').attr('data-locale')]).forEach(function (el) {
+                $('#demo-examples').append('<span class="ex" style="font-size:' + Math.floor(Math.random() * (40 - 14 + 1) + 14) + 'px; font-weight:' + 
+                        Math.floor(Math.random() * (9 - 1 + 1) + 1) + '00">' + el + '</span> ');
+            });
+            $('#demo-examples').fadeIn(200);
+          });
         });
+
+        $('#demo-examples').on('click', '.ex', function() {
+          $('#demo-input').val($(this).html()).trigger('input');
+        })
       });
+    
+    function shuffle(array) {
+      var m = array.length, t, i;
+      while (m) {
+        i = Math.floor(Math.random() * m--);
+        t = array[m];
+        array[m] = array[i];
+        array[i] = t;
+      }
+      return array;
+    }
     </script>
 
   </body>
