@@ -50,7 +50,7 @@ All fields are mandatory, even if empty.
 * `LTRlevels` (array) – Contains the levels that have to be read from left to right (for an explanation of what a level is, see the next field.) 
     e.g., in English, the Level 1 is read from left to right (seventeen: `7 + 10`), unlike French (dix-sept: `10 + 7`)
 * `values` (array) – Contains the written numbers of the language, ordered by ascending level. To simplify the translation and the execution, the given string number is tokenized, and each token is assigned its numbered value, and the level in which it is contained. Each level contains the level beneath it. The level 0 is used for digits and exceptions.
-    * (object) – "stringValue": integerValue
+    * (object) – `{"stringValue": integerValue}`
 
 Licence
 -------
