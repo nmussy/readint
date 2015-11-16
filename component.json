@@ -2,7 +2,7 @@
   "name": "readint",
   "repo": "nmussy/readint",
   "description": "Localized written number parsing",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "keywords": [
     "written",
     "number",

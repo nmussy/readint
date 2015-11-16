@@ -7,7 +7,7 @@
   "homepage": "http://nmussy.github.io/readint",
   "name": "readint",
   "description": "Localized written number parsing",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "repository": {
     "type" : "git",
     "url": "https://github.com/nmussy/readint.git"
