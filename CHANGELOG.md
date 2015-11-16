@@ -1,6 +1,10 @@
 Changelog
 ---------
 
+### 0.2.3    November 16, 2015
+
+* Fixed French locale typo.
+
 ### 0.2.2    July 30, 2013
 
 * Optimized German version.

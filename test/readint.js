@@ -386,8 +386,8 @@ describe('French:', function() {
       assert(39 == readint('trente-neuf', 'fr'));
     });
 
-    it('quarente', function () {
-      assert(40 == readint('quarente', 'fr'));
+    it('quarante', function () {
+      assert(40 == readint('quarante', 'fr'));
     });
 
     it('cinquante', function () {
